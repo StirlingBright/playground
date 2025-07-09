@@ -1,6 +1,8 @@
 from datetime import datetime
 from datetime import timedelta
 
+
+### hardcoded inputs for testing
 if False:
     filename = 'late_june.txt'
     starting_date = '24.6.2020'
