@@ -4,9 +4,9 @@ if True:
     exam_data = input('Exam points:')
 else:
     # hard-coded input for testing
-    student_info = "students1.csv"
-    exercise_data = "exercises1.csv"
-    exam_data = 'exam_points1.csv'
+    student_info = "students.csv"
+    exercise_data = "exercises.csv"
+    exam_data = 'exam_points.csv'
 with open(student_info) as new_file:
     student_info_dict = {}
     for line in new_file:
