@@ -1,0 +1,40 @@
+import requests
+import bs4
+
+def name_rating_unsorted():
+    page_num = 1
+    for num in range(0,50):
+        base_url = 'https://books.toscrape.com/catalogue/page-{}.html'
+        page = requests.get(base_url.format(page_num))
+        page_clean = bs4.BeautifulSoup(page.text, 'lxml')
+        numbers = ['One','Two','Three','Four','Five']
+
+        print(f'\nPAGE NUMBER: {page_num}\n')
+        for item in page_clean.select('.product_pod'):
+            print(item.select('a')[1]['title'])
+            for option in numbers:
+                if item.select(f'.star-rating.{option}') != []:
+                    print(f' - {option} Stars')
+        page_num +=1
+
+def name_money_sorted():
+    page_num = 1
+    money = {}
+    sort_by_money = []
+    for num in range(0,50):
+        base_url = 'https://books.toscrape.com/catalogue/page-{}.html'
+        page = requests.get(base_url.format(page_num))
+        page_clean = bs4.BeautifulSoup(page.text, 'lxml')
+        for item in page_clean.select('.product_pod'):
+            price = float((item.select('.price_color')[0].text)[2:])
+            money[price] = (item.select('a')[1]['title'])
+            sort_by_money.append(price)
+        sort_by_money.sort()
+        page_num +=1
+    for price in sort_by_money:
+        print(f'{money[price]} is £{price}')
+
+
+if __name__ == '__main__':
+    name_rating_unsorted()        
+    name_money_sorted()
